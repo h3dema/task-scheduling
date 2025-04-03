@@ -15,6 +15,13 @@ def create_queues(tasks, priority_ranges):
                 break
     return queues
 
+"""
+# Explanation:
+Priority Ranges and Queue Assignment: Tasks are divided into separate FIFO queues based on non-overlapping priority ranges (priority_ranges).
+Round-Robin Scheduling: Queues are processed cyclically (round-robin). Each queue receives queue_quantum time.
+Task Processing: Within a queue, tasks are processed using a task_quantum time slice. Remaining tasks are re-added to the end of their respective queues.
+This approach ensures fairness across priority levels while maintaining a predictable execution order.
+"""
 def multi_queue_scheduler(queues, queue_quantum, task_quantum):
     print("Execution Order:")
     queue_count = len(queues)
