@@ -1,7 +1,7 @@
 import random
 from collections import deque
 
-from tasks import Task
+from tasks import Task, create_queues
 
 
 class TaskL(Task):
@@ -45,18 +45,11 @@ enabling dependent tasks to become runnable.
 - Tasks in each queue are processed using lottery scheduling, 
 but only tasks with satisfied dependencies are considered for the lottery draw.
 """
-def multi_queue_lottery_scheduler_with_dependencies(tasks, queue_quanta, task_quantum):
-    # Create multi-level queues (each as a deque)
-    queues = [deque() for _ in range(len(queue_quanta))]
+def multi_queue_lottery_scheduler_with_dependencies(queues, queue_quanta, task_quantum):
 
     # Map tasks by name for easy lookup and assign them to their respective queues
-    task_map = {task.name: task for task in tasks}
+    task_map = {task.name: task for tasks in queues for task in tasks}
     completed_tasks = set()
-
-    for task in tasks:
-        # Priority determines the queue index (e.g., priority 1 goes to queue 0)
-        queue_index = min(task.priority - 1, len(queues) - 1)  # Map priority to valid queue
-        queues[queue_index].append(task)
 
     print("Execution Order:")
     queue_count = len(queues)
@@ -111,4 +104,10 @@ tasks = [
 queue_quanta = [8, 16, 32]  # Different quanta for each queue
 task_quantum = 4           # Maximum time allocated to any task in a single turn
 
-multi_queue_lottery_scheduler_with_dependencies(tasks, queue_quanta, task_quantum)
+# Define priority ranges for queues (e.g., Queue 0 for priorities 1-3, Queue 1 for 4-6, etc.)
+priority_ranges = [(1, 3), (4, 6), (7, 10)]
+
+# Create queues
+queues = create_queues(tasks, priority_ranges)
+
+multi_queue_lottery_scheduler_with_dependencies(queues, queue_quanta, task_quantum)
