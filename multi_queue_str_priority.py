@@ -1,19 +1,29 @@
 import heapq
 
 from tasks import create_priority_queues
+from tasks import Task
 
-
-class Task:
-    def __init__(self, name, priority, burst_time):
-        self.name = name
-        self.priority = priority
-        self.burst_time = burst_time
+class TaskStr(Task):
     
     def __lt__(self, other):
         # Task with shorter remaining burst time will have higher priority in the priority queue
         return self.burst_time < other.burst_time
 
 
+"""
+Priority Queue for STR Scheduling:
+Each queue is implemented as a priority queue using Python's heapq.
+Tasks are stored and retrieved based on their remaining burst time, ensuring that the task with the shortest remaining time is executed first.
+
+Task Comparison: The __lt__ method in the Task class ensures that tasks are automatically prioritized by remaining burst time.
+
+Queue Management:
+Each queue operates as an independent priority queue, and tasks are dynamically re-added as they are processed.
+
+Round-Robin Across Queues:
+The scheduler processes queues cyclically, allocating each queue its respective quantum (queue_quanta).
+This implementation ensures that tasks with shorter remaining times are always prioritized within their respective queue while balancing fairness across queues. Let me know if you'd like additional modifications!
+"""
 def multi_queue_str_priority_scheduler(queues, queue_quanta, task_quantum):
     print("Execution Order:")
     queue_count = len(queues)
@@ -37,11 +47,11 @@ def multi_queue_str_priority_scheduler(queues, queue_quanta, task_quantum):
 
 # Example
 tasks = [
-    Task("Task1", priority=2, burst_time=10),
-    Task("Task2", priority=5, burst_time=15),
-    Task("Task3", priority=8, burst_time=7),
-    Task("Task4", priority=4, burst_time=12),
-    Task("Task5", priority=6, burst_time=6)
+    TaskStr("Task1", priority=2, burst_time=10),
+    TaskStr("Task2", priority=5, burst_time=15),
+    TaskStr("Task3", priority=8, burst_time=7),
+    TaskStr("Task4", priority=4, burst_time=12),
+    TaskStr("Task5", priority=6, burst_time=6)
 ]
 
 # Define priority ranges for queues (e.g., Queue 0 for priorities 1-3, Queue 1 for 4-6, etc.)
