@@ -3,7 +3,11 @@ from collections import deque
 from tasks import Task
 from tasks import create_queues
 
-
+"""
+Round Robin Scheduler: Tasks within each queue are processed cyclically, with each task receiving a fixed time slice (task_quantum). If the task isn't completed within its allocated time slice, it is re-added to the end of the queue for further execution.
+Queue Processing: Queues are processed in a circular fashion, with each queue receiving its predefined time quantum (queue_quanta[current_queue]).
+Fair Allocation: This approach ensures fairness across all tasks and queues by balancing time allocation using both task-level and queue-level quantums.
+"""
 def multi_queue_round_robin_scheduler(queues, queue_quanta, task_quantum):
     print("Execution Order:")
     queue_count = len(queues)
