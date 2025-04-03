@@ -1,14 +1,10 @@
 import heapq
 
-class Task:
-    def __init__(self, name, priority, burst_time):
-        self.name = name
-        self.priority = priority
-        self.burst_time = burst_time
-    
-    def __lt__(self, other):
-        # Higher priority tasks will come first in the priority queue
-        return self.priority > other.priority
+from tasks import Task
+from tasks import create_queues
+
+
+
 """
 a heapq priority queue is used to manage tasks based on their priority. The priority queue ensures that tasks with higher priority are processed first. After executing a task for the time quantum, if the task isn't finished, it is reinserted into the priority queue for further processing
 """
