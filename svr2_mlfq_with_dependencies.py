@@ -12,6 +12,23 @@ def can_run(task, completed_tasks):
 the Multilevel Feedback Queue (MLFQ) scheduler considering dependencies between tasks.
 The tasks will now only execute if their dependencies are satisfied, 
 meaning all the tasks they depend on must complete before they can run.
+
+- Each task can define a list of dependencies (dependencies), 
+which are other tasks that must complete before it can run.
+The can_run function checks if all dependencies for a task are satisfied 
+before allowing it to execute.
+
+- A completed_tasks set keeps track of all tasks that have finished execution.
+Tasks are only considered ready to run if all their dependencies are in 
+the completed_tasks set.
+
+- Tasks are evaluated for dependencies before execution. 
+- If a task’s dependencies are not met, it is re-added to its current queue,
+ensuring it remains in contention for future execution.
+The scheduler skips the task and moves on to the next one.
+
+- Aging is applied as before, ensuring that tasks stuck waiting 
+(even due to unmet dependencies) can gain priority over time.
 """
 def svr2_mlfq_with_dependencies(tasks, queue_quanta, task_quantum, aging_threshold, aging_increment):
     # Create multilevel priority queues
