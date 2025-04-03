@@ -22,14 +22,14 @@ Round-Robin Scheduling: Queues are processed cyclically (round-robin). Each queu
 Task Processing: Within a queue, tasks are processed using a task_quantum time slice. Remaining tasks are re-added to the end of their respective queues.
 This approach ensures fairness across priority levels while maintaining a predictable execution order.
 """
-def multi_queue_scheduler(queues, queue_quantum, task_quantum):
+def multi_queue_scheduler(queues, queue_quanta, task_quantum):
     print("Execution Order:")
     queue_count = len(queues)
     current_queue = 0
 
     while any(queues):  # Continue until all queues are empty
         if queues[current_queue]:
-            remaining_time = queue_quantum
+            remaining_time = queue_quanta[current_queue]  # Quantum for the current queue
             while remaining_time > 0 and queues[current_queue]:
                 task = queues[current_queue].popleft()
 
@@ -62,7 +62,7 @@ priority_ranges = [(1, 3), (4, 6), (7, 10)]
 queues = create_queues(tasks, priority_ranges)
 
 # Define quantum times
-queue_quantum = 10  # Time allocated to each queue
+queue_quanta = [6, 8, 10]  # Different time quanta for each queue
 task_quantum = 4    # Time allocated to each task per turn
 
 multi_queue_scheduler(queues, queue_quantum, task_quantum)
