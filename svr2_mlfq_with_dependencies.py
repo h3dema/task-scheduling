@@ -1,6 +1,6 @@
 import heapq
 
-from svr2. import TaskSrv2, aging
+from svr2_multilevel_feedback_queue import TaskSrv2, aging
 
 
 def can_run(task, completed_tasks):
@@ -76,11 +76,11 @@ def svr2_mlfq_with_dependencies(tasks, queue_quanta, task_quantum, aging_thresho
 
 # Example
 tasks = [
-    Task("Task1", priority=1, burst_time=10),
-    Task("Task2", priority=2, burst_time=15, dependencies=["Task1"]),
-    Task("Task3", priority=3, burst_time=5, dependencies=["Task1"]),
-    Task("Task4", priority=1, burst_time=20, dependencies=["Task2", "Task3"]),
-    Task("Task5", priority=2, burst_time=8)
+    TaskSrv2("Task1", priority=1, burst_time=10),
+    TaskSrv2("Task2", priority=2, burst_time=15, dependencies=["Task1"]),
+    TaskSrv2("Task3", priority=3, burst_time=5, dependencies=["Task1"]),
+    TaskSrv2("Task4", priority=1, burst_time=20, dependencies=["Task2", "Task3"]),
+    TaskSrv2("Task5", priority=2, burst_time=8)
 ]
 
 # Define queue quanta
