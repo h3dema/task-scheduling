@@ -9,7 +9,9 @@ class Task:
     def __lt__(self, other):
         # Higher priority tasks will come first in the priority queue
         return self.priority > other.priority
-
+"""
+a heapq priority queue is used to manage tasks based on their priority. The priority queue ensures that tasks with higher priority are processed first. After executing a task for the time quantum, if the task isn't finished, it is reinserted into the priority queue for further processing
+"""
 def priority_based_round_robin(tasks, time_quantum):
     # Create a priority queue
     priority_queue = []
