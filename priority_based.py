@@ -8,7 +8,7 @@ from tasks import create_queues
 """
 a heapq priority queue is used to manage tasks based on their priority. The priority queue ensures that tasks with higher priority are processed first. After executing a task for the time quantum, if the task isn't finished, it is reinserted into the priority queue for further processing
 """
-def priority_based_round_robin(tasks, time_quantum):
+def priority_based(tasks, time_quantum):
     # Create a priority queue
     priority_queue = []
     for task in tasks:
@@ -33,4 +33,4 @@ tasks = [
 ]
 
 time_quantum = 4
-priority_based_round_robin(tasks, time_quantum)
+priority_based(tasks, time_quantum)
