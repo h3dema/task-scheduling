@@ -49,13 +49,18 @@ def create_queues(tasks: list[Task], priority_ranges: list[tuple[int, int]]) -> 
     """
     Create a list of queues based on the given tasks and priority ranges.
 
-    tasks: list of Task objects
-    priority_ranges: list of tuples of (low, high) priority ranges
+    Parameters:
+        tasks: list of Task objects
+        priority_ranges: list of tuples of (low, high) priority ranges
 
     Returns a list of deques (queues) where each queue contains tasks with priorities
     within the corresponding range in priority_ranges. The tasks are added in the order
     they appear in the input list.
     """
+    if priority_ranges is None:
+        priorities = [task.priority for task in tasks]
+        # just one queue for all tasks
+        priority_ranges = [[min(priorities), max(priorities)]]
     queues = [deque() for _ in range(len(priority_ranges))]
     for task in tasks:
         for i, (low, high) in enumerate(priority_ranges):
@@ -70,10 +75,11 @@ def create_priority_queues(tasks: list[Task], priority_ranges: list[tuple[int, i
     """
     Create a list of priority queues based on the given tasks and priority ranges.
 
-    tasks: list of Task objects. The Task must implement the __lt__ method for comparison.
-    priority_ranges: list of tuples of (low, high) priority ranges
+    Parameters:
+        tasks: list of Task objects. The Task must implement the __lt__ method for comparison.
+        priority_ranges: list of tuples of (low, high) priority ranges
 
-    Returns a list of priority queues where each queue contains tasks with priorities
+    Returns a list of **priority queues** where each queue contains tasks with priorities
     within the corresponding range in priority_ranges. The tasks are added in the order
     they appear in the input list.
     """
