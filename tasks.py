@@ -77,6 +77,10 @@ def create_priority_queues(tasks: list[Task], priority_ranges: list[tuple[int, i
     within the corresponding range in priority_ranges. The tasks are added in the order
     they appear in the input list.
     """
+    if priority_ranges is None:
+        priorities = [task.priority for task in tasks]
+        # just one queue for all tasks
+        priority_ranges = [[min(priorities), max(priorities)]]
     queues = [[] for _ in range(len(priority_ranges))]
     for task in tasks:
         for i, (low, high) in enumerate(priority_ranges):
