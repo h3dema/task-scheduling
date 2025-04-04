@@ -208,6 +208,7 @@ Task Task2 completed
 </div>
 
 
+> There is a variation of this code that implements dependency between tasks. See [priority_with_dependencies.py](priority_with_dependencies.py).
 
 
 ## Priority Queue for shortest remaining time (STR) Scheduling

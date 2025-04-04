@@ -7,7 +7,7 @@ def can_run(task, completed_tasks):
     A task is allowed to run if all the tasks it depends on have been completed.
 
     Parameters:
-        task (TaskSrv2): The task to be checked.
+        task (Task): The task to be checked.
         completed_tasks (set): A set containing the names of completed tasks.
 
     Returns:
