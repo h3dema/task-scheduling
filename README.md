@@ -5,7 +5,8 @@ There are a number of popular process scheduling algorithms teams use to optimiz
 - [First Come First Served](#first-come-first-served) (FCFS)
 - Shortest Job First (SJF) and [Shortest Time Remaining](#shortest-job-first-and-shortest-time-remaining)
 - [Round Robin Scheduling](#round-robin)
-- [Priority Scheduling](#priority-queue-for-shortest-remaining-time-str-scheduling)
+- [Priority scheduling](#priority-queue)
+- [Priority Scheduling with STR](#priority-queue-for-shortest-remaining-time-str-scheduling)
 - [Lottery Scheduling](#lottery-scheduling-using-multiple-queues)
 - [Multilevel Feedback Queue (MLFQ)](#multilevel-feedback-queue-mlfq)
 - [SVR2 (System V Release 2) Unix scheduling](#svr2-system-v-release-2-unix-scheduling) algorithm
