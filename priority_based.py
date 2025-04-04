@@ -9,7 +9,8 @@ from tasks import create_priority_queues
 a heapq priority queue is used to manage tasks based on their priority. The priority queue ensures that tasks with higher priority are processed first. After executing a task for the time quantum, if the task isn't finished, it is reinserted into the priority queue for further processing
 """
 def priority_based(queues, queue_quanta, task_quantum, reinsert=True):
-    print("Execution Order:")
+    print("Execution Order {}:".format("with task reinsertion" if reinsert else "without task reinsertion"))
+
     queue_count = len(queues)
     current_queue = queue_count - 1  # Start with the last queue (more priority)
 
@@ -44,7 +45,14 @@ def priority_based(queues, queue_quanta, task_quantum, reinsert=True):
             current_queue = queue_count - 1
 
 
+def test(queues, queue_quanta, task_quantum, reinsert):
+    # Execute the tasks
+    priority_based(queues, queue_quanta, task_quantum, reinsert)
+
+
 if __name__ == "__main__":
+    import sys
+    from copy import deepcopy
 
     # Example
     tasks = [
@@ -56,8 +64,21 @@ if __name__ == "__main__":
     ]
 
     queues = create_priority_queues(tasks, None)
+    queue_quanta = [sys.maxsize]  # There is only one queue
 
-    queue_quanta = [6, 8, 10]  # Queue 0 has the shortest quantum, Queue 2 has the longest quantum
+    # --------------------------------------------------------------------------------
+    #
+    # **Note**: must use `deepcopy` to avoid modifying the original queues
+    #
+    # --------------------------------------------------------------------------------
+    # Test with reinsertion
+    test(deepcopy(queues), queue_quanta, task_quantum=4, reinsert=True)
+    print('\n\n')
 
-    task_quantum = 4
-    priority_based(queues, queue_quanta, task_quantum, reinsert=True)
+    # Test without reinsertion
+    test(deepcopy(queues), queue_quanta, task_quantum=4, reinsert=False)
+    print('\n\n')
+
+    # Test without reinsertion and with max quantum
+    # In this case, the order of execution is strictly based on the priority of the tasks
+    test(deepcopy(queues), queue_quanta, task_quantum=sys.maxsize, reinsert=False)
