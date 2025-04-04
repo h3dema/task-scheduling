@@ -8,6 +8,8 @@
     - Tasks are assigned to multiple queues based on their priority,
     with each queue having its own time quantum (queue_quanta).
 
+    - Task must be ojects of type `TaskLottery`.
+
     - Each task includes a list of dependencies (other task names).
     A task can only run if all its dependencies are completed.
     The can_run function checks whether a task's dependencies are satisfied
@@ -31,7 +33,7 @@ class TaskLottery(Task):
 
     def __init__(self, name, priority, burst_time, tickets, dependencies=None):
         """
-        Initialize a TaskL object.
+        Initialize a TaskLottery object.
 
         Args:
             name (str): Task name
@@ -58,10 +60,10 @@ def draw_lottery(tasks):
     returns None.
 
     Parameters:
-    tasks (list): A list of TaskL objects participating in the lottery.
+        tasks (list): A list of TaskL objects participating in the lottery.
 
     Returns:
-    TaskL or None: The task selected by the lottery, or None if there are no tickets.
+        TaskL or None: The task selected by the lottery, or None if there are no tickets.
     """
 
     total_tickets = sum(task.tickets for task in tasks)
@@ -82,11 +84,11 @@ def can_run(task, completed_tasks):
     remaining burst time.
 
     Parameters:
-    task (TaskL): The task to check
-    completed_tasks (set): A set of task names representing completed tasks
+        task (TaskL): The task to check
+        completed_tasks (set): A set of task names representing completed tasks
 
     Returns:
-    bool: True if the task is ready to run, False otherwise
+        bool: True if the task is ready to run, False otherwise
     """
 
     all_ok = all([x in completed_tasks for x in  task.dependencies])
