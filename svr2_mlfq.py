@@ -109,6 +109,7 @@ def svr2_multilevel_feedback_queue(queues, queue_quanta, task_quantum, aging_thr
         # Apply aging after each round
         aging(queues, aging_threshold, aging_increment)
 
+
 if __name__ == "__main__":
 
     # Example
