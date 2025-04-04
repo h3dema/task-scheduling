@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 
 
 class Task:
@@ -24,7 +25,8 @@ class Task:
 
         self.name = name
         self.priority = priority
-        self.burst_time = burst_time
+        self.burst_time = burst_time  # Remaining burst time
+        self.total_burst_time = burst_time  # Store the original burst time
         self.waiting_time = waiting_time
         self.dependencies = dependencies or []  # List of task names this task depends on
         self.completed = False  # Track if the task is completed
@@ -43,7 +45,7 @@ class Task:
         return self.priority > other.priority
 
 
-def create_queues(tasks, priority_ranges):
+def create_queues(tasks: list[Task], priority_ranges: list[tuple[int, int]]) -> list[list[Task]]:
     """
     Create a list of queues based on the given tasks and priority ranges.
 
@@ -59,5 +61,26 @@ def create_queues(tasks, priority_ranges):
         for i, (low, high) in enumerate(priority_ranges):
             if low <= task.priority <= high:
                 queues[i].append(task)
+                break
+    return queues
+
+
+
+def create_priority_queues(tasks: list[Task], priority_ranges: list[tuple[int, int]]) -> list[list[Task]]:
+    """
+    Create a list of priority queues based on the given tasks and priority ranges.
+
+    tasks: list of Task objects. The Task must implement the __lt__ method for comparison.
+    priority_ranges: list of tuples of (low, high) priority ranges
+
+    Returns a list of priority queues where each queue contains tasks with priorities
+    within the corresponding range in priority_ranges. The tasks are added in the order
+    they appear in the input list.
+    """
+    queues = [[] for _ in range(len(priority_ranges))]
+    for task in tasks:
+        for i, (low, high) in enumerate(priority_ranges):
+            if low <= task.priority <= high:
+                heapq.heappush(queues[i], task)
                 break
     return queues
