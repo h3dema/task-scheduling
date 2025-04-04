@@ -61,7 +61,6 @@ if __name__ == "__main__":
     # Example
     #
 
-
     # Define tasks with dependencies
     # Notice that Task2 is put at the of the list below, so it will be executed last because Task4 and Task5 comes first.
     # TODO: maybe implement dependencies?
